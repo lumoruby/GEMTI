@@ -1,14 +1,322 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta name="description" content="GEMTI - 나와 어울리는 보석을 찾아보세요. 15가지 질문으로 당신의 성격과 가장 잘 맞는 보석을 알려드립니다. 20종류의 보석 중 당신만의 보석을 발견하세요." />
+  <meta name="keywords" content="보석 테스트, 성격 테스트, GEMTI, 나에게 맞는 보석, 보석 심리테스트, 보석 MBTI, 탄생석, 보석 종류, 보석 의미" />
+  <meta name="author" content="GEMTI" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GEMTI - 나와 어울리는 보석 찾기" />
+  <meta property="og:description" content="15가지 질문으로 당신의 성격과 가장 잘 맞는 보석을 알려드립니다. 20종류의 보석 중 당신만의 보석을 발견하세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:site_name" content="GEMTI" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GEMTI - 나와 어울리는 보석 찾기" />
+  <meta name="twitter:description" content="15가지 질문으로 당신의 성격과 가장 잘 맞는 보석을 알려드립니다." />
+
+  <title>GEMTI - 나와 어울리는 보석 찾기 | 보석 성격 테스트</title>
+  <link rel="canonical" href="https://gemti.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
+  <!-- 배경 보석 애니메이션 -->
+  <div class="gem-background" id="gemBackground" aria-hidden="true"></div>
+
+  <div class="container">
+    <!-- 메인 화면 -->
+    <section id="startScreen" class="screen active">
+      <header class="header">
+        <h1 class="logo">GEMTI</h1>
+        <p class="tagline">나와 어울리는 보석 찾기</p>
+      </header>
+
+      <main class="intro-content">
+        <div class="gem-icon-large" aria-hidden="true">💎</div>
+        <h2>당신만의 보석을 찾아보세요</h2>
+        <p class="description">
+          15가지 질문을 통해 당신의 성격과 가치관을 분석하고,<br>
+          가장 잘 어울리는 보석을 찾아드립니다.
+        </p>
+        <ul class="features">
+          <li>15가지 심리 분석 질문</li>
+          <li>20종류의 다양한 보석</li>
+          <li>나만의 보석 의미 해석</li>
+        </ul>
+        <button id="startBtn" class="btn btn-primary">테스트 시작하기</button>
+      </main>
+
+      <!-- 보석 정보 섹션 -->
+      <section class="info-section">
+        <h3>GEMTI 보석 테스트란?</h3>
+        <p>GEMTI는 'Gem Type Indicator'의 약자로, MBTI와 유사한 성격 분석 방식을 활용하여 당신에게 가장 잘 어울리는 보석을 찾아주는 테스트입니다.</p>
+        <p>각 보석은 고유한 특성과 의미를 가지고 있으며, 당신의 성격, 가치관, 생활 방식과 가장 잘 맞는 보석을 과학적인 질문을 통해 분석합니다.</p>
+
+        <h4>테스트에서 만날 수 있는 보석들</h4>
+        <div class="gem-list-preview">
+          <span>다이아몬드</span><span>루비</span><span>사파이어</span><span>에메랄드</span>
+          <span>자수정</span><span>진주</span><span>토파즈</span><span>오팔</span>
+          <span>아쿠아마린</span><span>가넷</span><span>페리도트</span><span>시트린</span>
+          <span>터키석</span><span>문스톤</span><span>로즈 쿼츠</span><span>라피스 라줄리</span>
+          <span>탄자나이트</span><span>비취</span><span>알렉산드라이트</span><span>모거나이트</span>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <nav class="footer-nav">
+          <button type="button" class="footer-link" onclick="showPage('about')">소개</button>
+          <button type="button" class="footer-link" onclick="showPage('privacy')">개인정보처리방침</button>
+          <button type="button" class="footer-link" onclick="showPage('terms')">이용약관</button>
+        </nav>
+        <p class="disclaimer">GEMTI는 재미있는 성격 테스트입니다. 결과는 참고용으로만 활용해 주세요.</p>
+        <p class="copyright">&copy; 2024 GEMTI. All rights reserved.</p>
+      </footer>
+    </section>
+
+    <!-- 질문 화면 -->
+    <section id="quizScreen" class="screen">
+      <div class="quiz-header">
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <span class="progress-text" id="progressText">1 / 15</span>
+      </div>
+
+      <main class="quiz-content">
+        <h2 class="question" id="questionText">질문이 여기에 표시됩니다</h2>
+        <div class="answers" id="answersContainer">
+          <!-- 답변 버튼들이 여기에 동적으로 생성됩니다 -->
+        </div>
+      </main>
+    </section>
+
+    <!-- 로딩 화면 -->
+    <section id="loadingScreen" class="screen">
+      <div class="loading-content">
+        <div class="loading-gems">
+          <span>💎</span>
+          <span>💠</span>
+          <span>🔮</span>
+        </div>
+        <h2>당신의 보석을 찾고 있어요...</h2>
+        <p>잠시만 기다려 주세요</p>
+      </div>
+    </section>
+
+    <!-- 결과 화면 -->
+    <section id="resultScreen" class="screen">
+      <header class="result-header">
+        <p class="result-label">당신과 어울리는 보석은</p>
+        <h1 class="gem-name" id="gemName">다이아몬드</h1>
+      </header>
+
+      <main class="result-content">
+        <div class="gem-image-container">
+          <img id="gemImage" src="" alt="보석 이미지" class="gem-image" />
+        </div>
+
+        <div class="keywords" id="keywords">
+          <!-- 키워드가 여기에 표시됩니다 -->
+        </div>
+
+        <article class="gem-description">
+          <h3>이 보석이 당신과 어울리는 이유</h3>
+          <div class="description-text" id="descriptionText">
+            <!-- 설명이 여기에 표시됩니다 -->
+          </div>
+        </article>
+
+        <div class="gem-info">
+          <h3>보석 정보</h3>
+          <p id="gemInfo"></p>
+        </div>
+      </main>
+
+      <div class="result-actions">
+        <button id="shareBtn" class="btn btn-secondary">링크 복사</button>
+        <button id="retryBtn" class="btn btn-primary">다시 테스트하기</button>
+      </div>
+
+      <footer class="result-footer">
+        <p>GEMTI와 함께 나만의 보석을 찾아보세요!</p>
+        <nav class="footer-nav">
+          <button type="button" class="footer-link" onclick="showPage('about')">소개</button>
+          <button type="button" class="footer-link" onclick="showPage('privacy')">개인정보처리방침</button>
+          <button type="button" class="footer-link" onclick="showPage('terms')">이용약관</button>
+        </nav>
+        <p class="copyright">&copy; 2024 GEMTI. All rights reserved.</p>
+      </footer>
+    </section>
+
+    <!-- 소개 페이지 -->
+    <section id="aboutPage" class="screen page-content">
+      <header class="page-header">
+        <button type="button" class="back-btn" onclick="goBack()">&larr; 돌아가기</button>
+        <h1>GEMTI 소개</h1>
+      </header>
+
+      <main class="page-body">
+        <article>
+          <h2>GEMTI란?</h2>
+          <p>GEMTI(Gem Type Indicator)는 심리학적 성격 분석 방법론을 기반으로 개발된 보석 성격 테스트입니다. MBTI와 유사한 4가지 성향 지표를 활용하여 사용자의 성격 특성을 분석하고, 그에 가장 잘 어울리는 보석을 매칭해 드립니다.</p>
+
+          <h2>테스트 방법</h2>
+          <p>15가지 질문에 답하시면, 4가지 성향 축(외향/내향, 감각/직관, 사고/감정, 판단/인식)에서 당신의 성향을 분석합니다. 이를 바탕으로 20가지 보석 중 당신과 가장 잘 맞는 보석을 찾아드립니다.</p>
+
+          <h2>보석의 의미</h2>
+          <p>각 보석은 오랜 역사를 통해 고유한 상징과 의미를 갖게 되었습니다. GEMTI는 이러한 전통적인 보석의 의미와 현대 심리학적 성격 분석을 결합하여, 단순한 재미를 넘어 자기 이해의 도구로 활용될 수 있도록 설계되었습니다.</p>
+
+          <h2>개발 배경</h2>
+          <p>GEMTI는 보석에 대한 관심과 성격 심리학에 대한 연구를 바탕으로 2024년에 개발되었습니다. 누구나 쉽고 재미있게 자신의 성격을 탐구하고, 자신만의 특별한 보석을 발견할 수 있도록 만들어졌습니다.</p>
+
+          <h2>주의사항</h2>
+          <p>GEMTI는 오락 및 자기 탐구 목적으로 제작된 테스트입니다. 결과는 과학적으로 검증된 심리 진단이 아니며, 재미와 참고용으로만 활용해 주시기 바랍니다.</p>
+        </article>
+      </main>
+
+      <footer class="page-footer">
+        <p class="copyright">&copy; 2024 GEMTI. All rights reserved.</p>
+      </footer>
+    </section>
+
+    <!-- 개인정보처리방침 페이지 -->
+    <section id="privacyPage" class="screen page-content">
+      <header class="page-header">
+        <button type="button" class="back-btn" onclick="goBack()">&larr; 돌아가기</button>
+        <h1>개인정보처리방침</h1>
+      </header>
+
+      <main class="page-body">
+        <article>
+          <p><strong>시행일: 2024년 1월 1일</strong></p>
+
+          <h2>1. 개인정보의 처리 목적</h2>
+          <p>GEMTI('https://gemti.com' 이하 'GEMTI')는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.</p>
+          <ul>
+            <li>서비스 제공: 보석 성격 테스트 서비스 제공</li>
+            <li>서비스 개선: 사용자 경험 개선 및 서비스 품질 향상</li>
+          </ul>
+
+          <h2>2. 개인정보의 처리 및 보유기간</h2>
+          <p>GEMTI는 서비스 이용 과정에서 최소한의 정보만을 수집하며, 테스트 결과는 사용자의 브라우저에만 저장됩니다. 서버에 개인정보를 별도로 저장하지 않습니다.</p>
+
+          <h2>3. 개인정보의 제3자 제공</h2>
+          <p>GEMTI는 원칙적으로 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만, 아래의 경우에는 예외로 합니다.</p>
+          <ul>
+            <li>이용자가 사전에 동의한 경우</li>
+            <li>법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
+          </ul>
+
+          <h2>4. 쿠키(Cookie)의 사용</h2>
+          <p>GEMTI는 서비스 이용 과정에서 쿠키를 사용할 수 있습니다. 쿠키는 웹사이트가 고객의 컴퓨터 브라우저로 전송하는 소량의 정보입니다.</p>
+          <ul>
+            <li>쿠키 사용 목적: 테스트 진행 상태 저장, 사용자 설정 유지</li>
+            <li>쿠키 거부 방법: 브라우저 설정에서 쿠키 허용/거부를 선택할 수 있습니다</li>
+          </ul>
+
+          <h2>5. 광고</h2>
+          <p>GEMTI는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google AdSense는 사용자의 관심사에 맞는 광고를 표시하기 위해 쿠키를 사용할 수 있습니다. 자세한 내용은 Google의 개인정보처리방침을 참조하시기 바랍니다.</p>
+
+          <h2>6. 개인정보 보호책임자</h2>
+          <p>GEMTI는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 이용자의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+          <ul>
+            <li>담당: GEMTI 운영팀</li>
+            <li>이메일: privacy@gemti.com</li>
+          </ul>
+
+          <h2>7. 개인정보처리방침의 변경</h2>
+          <p>이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.</p>
+        </article>
+      </main>
+
+      <footer class="page-footer">
+        <p class="copyright">&copy; 2024 GEMTI. All rights reserved.</p>
+      </footer>
+    </section>
+
+    <!-- 이용약관 페이지 -->
+    <section id="termsPage" class="screen page-content">
+      <header class="page-header">
+        <button type="button" class="back-btn" onclick="goBack()">&larr; 돌아가기</button>
+        <h1>이용약관</h1>
+      </header>
+
+      <main class="page-body">
+        <article>
+          <p><strong>시행일: 2024년 1월 1일</strong></p>
+
+          <h2>제1조 (목적)</h2>
+          <p>이 약관은 GEMTI(이하 "서비스")가 제공하는 보석 성격 테스트 서비스의 이용조건 및 절차, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+
+          <h2>제2조 (정의)</h2>
+          <ol>
+            <li>"서비스"란 GEMTI가 제공하는 보석 성격 테스트 및 관련 콘텐츠를 의미합니다.</li>
+            <li>"이용자"란 이 약관에 따라 서비스를 이용하는 모든 사용자를 의미합니다.</li>
+          </ol>
+
+          <h2>제3조 (약관의 효력과 변경)</h2>
+          <ol>
+            <li>이 약관은 서비스를 이용하고자 하는 모든 이용자에게 그 효력이 발생합니다.</li>
+            <li>서비스는 합리적인 사유가 발생할 경우 약관을 변경할 수 있으며, 변경된 약관은 서비스 내 공지사항을 통해 공지합니다.</li>
+          </ol>
+
+          <h2>제4조 (서비스의 제공)</h2>
+          <ol>
+            <li>서비스는 다음과 같은 내용을 제공합니다:
+              <ul>
+                <li>보석 성격 테스트</li>
+                <li>테스트 결과 및 보석 정보 제공</li>
+                <li>결과 공유 기능</li>
+              </ul>
+            </li>
+            <li>서비스는 무료로 제공되며, 광고가 포함될 수 있습니다.</li>
+          </ol>
+
+          <h2>제5조 (이용자의 의무)</h2>
+          <ol>
+            <li>이용자는 서비스 이용 시 다음 행위를 하여서는 안 됩니다:
+              <ul>
+                <li>타인의 정보를 도용하는 행위</li>
+                <li>서비스의 운영을 방해하는 행위</li>
+                <li>서비스를 이용하여 불법적인 활동을 하는 행위</li>
+                <li>서비스의 콘텐츠를 무단으로 복제, 배포하는 행위</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h2>제6조 (서비스의 중단)</h2>
+          <p>서비스는 시스템 점검, 기술적 문제, 천재지변 등 불가피한 사유로 서비스 제공을 일시적으로 중단할 수 있습니다.</p>
+
+          <h2>제7조 (면책조항)</h2>
+          <ol>
+            <li>GEMTI 테스트 결과는 오락 및 참고 목적으로만 제공되며, 의학적, 심리학적 진단으로 사용될 수 없습니다.</li>
+            <li>서비스는 테스트 결과의 정확성이나 적합성에 대해 보증하지 않습니다.</li>
+            <li>이용자가 서비스를 통해 얻은 정보로 인해 발생한 손해에 대해 서비스는 책임을 지지 않습니다.</li>
+          </ol>
+
+          <h2>제8조 (지적재산권)</h2>
+          <p>서비스에서 제공하는 모든 콘텐츠(텍스트, 이미지, 디자인 등)에 대한 저작권은 GEMTI에 있으며, 이를 무단으로 복제, 배포, 수정할 수 없습니다.</p>
+
+          <h2>제9조 (분쟁해결)</h2>
+          <p>서비스 이용으로 발생한 분쟁에 대해 소송이 제기되는 경우, 대한민국 법률을 적용하며 관할 법원은 서비스 운영자의 소재지 관할 법원으로 합니다.</p>
+        </article>
+      </main>
+
+      <footer class="page-footer">
+        <p class="copyright">&copy; 2024 GEMTI. All rights reserved.</p>
+      </footer>
+    </section>
+
+  </div>
+
   <script defer type="text/javascript" src="/main.js"></script>
 </body>
 </html>
