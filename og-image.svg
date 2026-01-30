@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="25%" style="stop-color:#764ba2"/>
+      <stop offset="50%" style="stop-color:#f093fb"/>
+      <stop offset="75%" style="stop-color:#ec38bc"/>
+      <stop offset="100%" style="stop-color:#7873f5"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative gems (background) -->
+  <text x="80" y="100" font-size="80" opacity="0.15" transform="rotate(-15, 80, 100)">💎</text>
+  <text x="1050" y="120" font-size="70" opacity="0.15" transform="rotate(20, 1050, 120)">💠</text>
+  <text x="100" y="550" font-size="75" opacity="0.15" transform="rotate(10, 100, 550)">🔮</text>
+  <text x="1020" y="530" font-size="80" opacity="0.15" transform="rotate(-20, 1020, 530)">💎</text>
+  <text x="50" y="320" font-size="50" opacity="0.12">✨</text>
+  <text x="1130" y="350" font-size="55" opacity="0.12">💫</text>
+
+  <!-- Glass card -->
+  <rect x="250" y="115" width="700" height="400" rx="30" ry="30" fill="url(#card)" filter="url(#shadow)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+
+  <!-- Main gem emoji -->
+  <text x="600" y="230" font-size="90" text-anchor="middle" filter="url(#glow)">💎</text>
+
+  <!-- GEMTI Logo -->
+  <text x="600" y="330" font-family="Arial Black, sans-serif" font-size="80" font-weight="900" text-anchor="middle" fill="#fff" filter="url(#shadow)">GEMTI</text>
+
+  <!-- Tagline -->
+  <text x="600" y="390" font-family="Arial, sans-serif" font-size="32" font-weight="600" text-anchor="middle" fill="#fff" opacity="0.95">나와 어울리는 보석 찾기</text>
+
+  <!-- Description -->
+  <text x="600" y="435" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#fff" opacity="0.85">15가지 질문으로 당신만의 보석을 발견하세요</text>
+
+  <!-- Bottom gem row -->
+  <text x="445" y="495" font-size="36">💎</text>
+  <text x="505" y="495" font-size="36">🔴</text>
+  <text x="565" y="495" font-size="36">🟡</text>
+  <text x="625" y="495" font-size="36">🟢</text>
+  <text x="685" y="495" font-size="36">🔵</text>
+  <text x="745" y="495" font-size="36">🟣</text>
+</svg>
