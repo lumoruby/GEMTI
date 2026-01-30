@@ -1,0 +1,4 @@
+node_modules/
+generate-og.js
+package-lock.json
+*.log
